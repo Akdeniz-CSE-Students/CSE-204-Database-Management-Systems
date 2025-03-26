@@ -1,0 +1,247 @@
+
+# Create and Insert to ProductType Table
+
+CREATE TABLE ProductType (
+    	ProductTypeID INT NOT NULL AUTO_INCREMENT,
+    	ProductTypeName VARCHAR(255) NOT NULL,
+    	ProductCategoryName VARCHAR(255) NOT NULL,
+	PRIMARY KEY(ProductTypeID));
+
+INSERT INTO producttype (ProductTypeName,ProductCategoryName)
+SELECT DISTINCT u.ProductType,u.ProductCategory FROM unf_table u;
+
+# Create and Insert to Product Model Brand Table
+
+CREATE TABLE ProductModelBrand(
+	ProductModel VARCHAR(255) NOT NULL,
+    	ProductBrand VARCHAR(255) NOT NULL,
+    	PRIMARY KEY(ProductModel)
+);
+
+INSERT INTO productmodelbrand (ProductModel,ProductBrand)
+SELECT DISTINCT u.ProductModel, u.ProductBrand FROM unf_table u;
+
+
+# Create and Insert to Product Table
+
+
+CREATE TABLE Product(
+	ProductID INT NOT NULL AUTO_INCREMENT,
+    	Name VARCHAR(255) NOT NULL,
+    	ProductModel VARCHAR(255) NOT NULL,
+    	Price DOUBLE NOT NULL,
+	PriceCurrency VARCHAR(50) NOT NULL,
+    	Quantity INT NOT NULL,
+    	Color VARCHAR(255) DEFAULT NULL,
+    	ProductTypeID INT NOT NULL,
+    	Material VARCHAR(255) DEFAULT NULL,
+    	Rating DOUBLE NOT NULL,
+    	Description VARCHAR(255) DEFAULT NULL,
+    	Weight  VARCHAR(255) DEFAULT NULL,
+    	PRIMARY KEY(ProductID),
+   	KEY(ProductModel),
+    	KEY(ProductTypeID)
+);
+
+INSERT INTO product  
+	(ProductID,Name,ProductModel,Price,PriceCurrency,Quantity,Color,ProductTypeID,Material,Rating,Description,Weight)
+SELECT DISTINCT
+	u.ProductQRCode,u.ProductName,pmb.ProductModel,u.ProductPrice,
+	u.ProductCurrency,u.ProductQuantity,u.ProductColor,pt.ProductTypeID, u.ProductMaterial,
+	u.ProductRaiting, u.ProductDescription,u.ProductWeightKG
+FROM unf_table u 
+INNER JOIN productmodelbrand pmb ON
+ 	u.ProductBrand=pmb.ProductBrand AND u.ProductModel=pmb.ProductModel 
+INNER JOIN producttype pt ON u.ProductType=pt.ProductTypeName 
+	AND u.ProductCategory=pt.ProductCategoryName;
+
+
+
+# Create and Insert to Customer Table
+
+
+CREATE TABLE Customer(
+	CustomerID INT NOT NULL AUTO_INCREMENT,
+    	FirstName VARCHAR(255) NOT NULL,
+    	Surname VARCHAR(255) NOT NULL,
+    	DOB DATE NOT NULL,
+    	Gender VARCHAR(50) NOT NULL,
+    	Email VARCHAR(50) NOT NULL,
+    	Password VARCHAR(50) NOT NULL,
+    	PhoneNumber VARCHAR(50) DEFAULT NULL,
+    	PRIMARY KEY(CustomerID),
+    	UNIQUE KEY(Email));
+
+INSERT INTO 
+	customer (FirstName,Surname,DOB,Gender,Email,Password,PhoneNumber)
+SELECT DISTINCT 
+	SUBSTRING_INDEX(SUBSTRING_INDEX(u.CustomerFullName, ' ', 1), ' ', -1),TRIM( SUBSTR(u.CustomerFullName, LOCATE(' ', u.CustomerFullName))),
+	u.CustomerDOB,u.CustomerGender,u.CustomerEmail,u.CustomerPassword,u.CustomerPhone 
+FROM unf_table u;
+
+
+
+# Create and Insert to CustomerAddress Table
+
+CREATE TABLE CustomerAddress(
+	AddressID INT NOT NULL AUTO_INCREMENT,
+    CustomerID INT NOT NULL,
+    AddressName varchar(255) DEFAULT NULL,
+    Address varchar(255) DEFAULT NULL,
+    PRIMARY KEY(AddressID),
+    KEY(CustomerID)
+); 
+
+INSERT INTO customeraddress(CustomerID,AddressName,Address)
+SELECT DISTINCT c.CustomerID,u.CustomerAddressName,u.CustomerAddress FROM unf_table u
+INNER JOIN customer c ON c.Email=u.CustomerEmail;
+
+# Create and Insert to ProductComment Table
+
+CREATE TABLE ProductComment(
+	CommentID INT NOT NULL AUTO_INCREMENT,
+    ProductID INT NOT NULL,
+    CustomerID INT NOT NULL,
+    Comment VARCHAR(255) NOT NULL,
+    CommentStarCount DOUBLE NOT NULL,
+    PRIMARY KEY(CommentID),
+    KEY(ProductID),
+    KEY(CustomerID));
+
+
+INSERT INTO productcomment (ProductID,CustomerID,Comment,CommentStarCount)
+SELECT DISTINCT 
+	p.ProductID,c.CustomerID,u.ProductComment,u.ProductCommentRateNumber FROM unf_table u
+INNER JOIN customer c ON c.Email=u.CustomerEmail
+INNER JOIN product p ON u.ProductQRCode=p.ProductID
+	AND u.ProductWeightKG=p.Weight
+WHERE u.ProductComment  iS NOT NULL;
+
+
+# Create and Insert to ProductOrder Table
+
+CREATE TABLE ProductOrder(
+	OrderID INT NOT NULL AUTO_INCREMENT,
+    	CustomerID INT NOT NULL,
+    	Date DATE NOT NULL,
+    	TotalPrice DOUBLE NOT NULL,
+	PriceCurrency varchar(50) NOT NULL,
+    	DeliveryTime INT NOT NULL,
+    	OrderAddress TEXT NOT NULL,
+    	PRIMARY KEY(OrderID),
+    	KEY(CustomerID));
+
+INSERT INTO 
+	productorder (CustomerID,Date,TotalPrice,PriceCurrency,DeliveryTime,OrderAddress)
+SELECT DISTINCT 
+	c.CustomerID,u.OrderDate,u.OrderTotalPrice,u.OrderPriceCurrency,u.OrderDeliveryTime,u.OrderAddress 
+    FROM unf_table u
+INNER JOIN customer c ON c.Email=u.CustomerEmail;
+
+
+# Create and Insert to Cart Table
+
+
+CREATE TABLE Cart(
+	CartID INT NOT NULL AUTO_INCREMENT,
+    CustomerID INT NOT NULL,
+    PRIMARY KEY(CartID),
+    KEY(CustomerID)
+);
+
+INSERT INTO cart (CustomerID)
+SELECT DISTINCT c.CustomerID FROM unf_table u
+INNER JOIN customer c ON c.Email=u.CustomerEmail
+WHERE u.ProductInCustomerCart IS NOT NULL;
+
+
+# Create and Insert to Property Table
+
+CREATE TABLE Property(
+	PropertyID INT NOT NULL AUTO_INCREMENT,
+    PropertyName VARCHAR(255) NOT NULL,
+    PRIMARY KEY(PropertyID)
+);
+
+INSERT INTO property(PropertyName)
+	SELECT DISTINCT TRIM(u.Property) 
+	FROM unf_table u;
+
+
+# Create and Insert to PropertyValue Table
+
+CREATE TABLE PropertyValue(
+	PropertyValueID INT NOT NULL AUTO_INCREMENT,
+    	PropertyID INT NOT NULL,
+    	PropertyValue VARCHAR(255) NOT NULL,
+    	PRIMARY KEY(PropertyValueID),
+    	KEY(PropertyID));
+
+INSERT INTO 
+	propertyvalue (PropertyID,PropertyValue)
+	SELECT DISTINCT p.PropertyID,u.PropertyValue FROM unf_table u
+	INNER JOIN property p ON TRIM(p.PropertyName)=TRIM(u.Property); 
+
+# Create and Insert to ProductOrderRelation Table
+
+CREATE TABLE ProductOrderRelation(
+	ProductID INT NOT NULL,
+	OrderID INT NOT NULL,
+    ProductCount INT NOT NULL,
+    KEY(ProductID,OrderID)
+);
+
+INSERT INTO productorderrelation(ProductID,OrderID,ProductCount)
+SELECT DISTINCT p.ProductID,po.OrderID,u.CountOfProductinOrder FROM unf_table u
+INNER JOIN product p ON u.ProductQRCode=p.ProductID
+INNER JOIN customer c ON c.Email=u.CustomerEmail
+INNER JOIN productorder po ON po.CustomerID=c.CustomerID AND po.Date=u.OrderDate 
+	AND po.TotalPrice=u.OrderTotalPrice AND po.DeliveryTime=u.OrderDeliveryTime 
+	 AND po.OrderAddress=u.OrderAddress;
+
+# Create and Insert to ProductInCart Table
+
+CREATE TABLE ProductInCart(
+    ProductID INT NOT NULL,
+    CartID INT NOT NULL,
+    ProductCount INT NOT NULL,
+    KEY(ProductID,CartID)
+    );
+
+INSERT INTO productincart (CartID,ProductID,ProductCount) 
+SELECT DISTINCT cr.CartID,p.ProductID,u.ProductCountinCart FROM unf_table u
+INNER JOIN product p ON p.ProductID=u.ProductInCustomerCart
+INNER JOIN customer c ON c.Email=u.CustomerEmail
+INNER JOIN cart cr ON cr.CustomerID=c.CustomerID
+WHERE u.ProductInCustomerCart IS NOT NULL;
+
+# Create and Insert to ProductPropertyValue Table
+
+CREATE TABLE ProductPropertyValue(
+	ProductID INT NOT NULL,
+    	PropertyValueID INT NOT NULL,
+    	KEY(ProductID,PropertyValueID)
+);
+
+
+
+INSERT INTO productpropertyvalue (ProductID,PropertyValueID)
+SELECT DISTINCT p.ProductID,pv.PropertyValueID 
+FROM unf_table u
+	INNER JOIN product p ON u.ProductQRCode=p.ProductID
+	INNER JOIN propertyvalue pv ON pv.PropertyValue=u.PropertyValue 
+	INNER JOIN property pr ON pr.PropertyID=pv.PropertyID
+WHERE pr.PropertyName=u.Property;
+
+
+
+
+
+
+
+
+
+
+
+
+

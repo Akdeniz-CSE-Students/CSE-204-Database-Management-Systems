@@ -1,0 +1,176 @@
+CREATE TABLE HousingEstate(
+HousingEstateId INT NOT NULL,
+HousingEstateName VARCHAR(255) NOT NULL,
+SwimmingPoolId INT NOT NULL,
+GymId INT NOT NULL,
+PRIMARY KEY(HousingEstateId),
+KEY(SwimmingPoolId),
+KEY(GymId));
+
+INSERT INTO HousingEstate(HousingEstateId, HousingEstateName, SwimmingPoolId, GymId)
+SELECT DISTINCT u.HousingEstateId, u.HousingEstateName, u.HousingEstateSwimmingPoolId, u.HousingEstateGymId
+FROM unf_table u;
+
+
+
+CREATE TABLE Apartment(
+ ApartmentId INT NOT NULL,
+ HousingEstateId INT NOT NULL,
+ EmployeeId INT NOT NULL,
+ ElevatorId INT NOT NULL,
+ ParkingLotId INT NOT NULL,
+ Name VARCHAR(255) NOT NULL,
+ Address VARCHAR(255) NOT NULL,
+ City VARCHAR(255) NOT NULL,
+ NumberOfLevels INT NOT NULL,
+ NumberOfFlats INT NOT NULL,
+ BuildDate DATE NOT NULL,
+ LastCleanedDate DATE NOT NULL,
+PRIMARY KEY(ApartmentId),
+KEY(HousingEstateId),
+KEY(EmployeeId),
+KEY(ElevatorId),
+KEY(ParkingLotId)
+);
+
+INSERT INTO Apartment(ApartmentId, HousingEstateId, EmployeeId, ElevatorId, ParkingLotId, Name,
+Address, City, NumberOfLevels, NumberOfFlats, BuildDate, LastCleanedDate)
+SELECT DISTINCT u.ApartmentId, u.ApartmentHousingEstateId, u.ApartmentEmployeeId, u.ApartmentElevatorId, u.ApartmentParkingLotId, u.ApartmentName, u.ApartmentAddress, 
+u.ApartmentCity, u.ApartmentNumberOfLevels, u.ApartmentNumberOfFlats, u.ApartmentBuildDate, u.ApartmentLastCleanedDate 
+FROM unf_table u;
+
+
+CREATE TABLE Flat(
+ FlatId INT NOT NULL,
+ ApartmentId INT NOT NULL,
+ HowManyRooms INT NOT NULL,
+ HasAirConditioner BOOLEAN NOT NULL,
+ MonthlyRent INT NOT NULL,
+ PRIMARY KEY(FlatId),
+ KEY(apartmentId)
+);
+
+INSERT INTO Flat(FlatId, ApartmentId, HowManyRooms, HasAirConditioner, MonthlyRent)
+SELECT DISTINCT u.FlatId, u.FlatApartmentId, u.FlatHowManyRooms,
+u.FlatHasAirConditioner, u.FlatMonthlyRent 
+FROM unf_table u;
+
+
+CREATE TABLE Resident(
+ ResidentId INT NOT NULL,
+ FlatId INT NOT NULL,
+ GymId INT NOT NULL, 
+ Name VARCHAR(255) NOT NULL,
+ Surname VARCHAR(255) NOT NULL,
+ IdentityNumber VARCHAR(255) NOT NULL,
+ PhoneNumber VARCHAR(255) NOT NULL,
+ Gender BOOLEAN NOT NULL,
+ Age INT NOT NULL,
+ RentalDate DATE NOT NULL,
+ PRIMARY KEY(ResidentId),
+ KEY(FlatId),
+ KEY(GymId));
+ 
+INSERT INTO Resident(ResidentId, FlatId, GymId, Name, Surname, IdentityNumber ,PhoneNumber,
+Gender, Age, RentalDate
+)
+SELECT DISTINCT u.ResidentId, u.ResidentFlatId, u.ResidentGymId, u.ResidentName, u.ResidentSurname, 
+u.ResidentIdentityNumber, u.ResidentPhoneNumber, u.ResidentGender, u.ResidentAge,
+u.ResidentRentalDate
+FROM unf_table u;
+
+ 
+ CREATE TABLE Elevator(
+ ElevatorId INT NOT NULL,
+ ApartmentId INT NOT NULL,
+ Brand VARCHAR(255) NOT NULL,
+ MaxKg INT NOT NULL,
+ MaxPerson INT NOT NULL,
+ LastMaintenanceDate DATE NOT NULL,
+ PRIMARY KEY(ElevatorId),
+ KEY(ApartmentId));
+ 
+INSERT INTO Elevator(ElevatorId, ApartmentId, Brand, MaxKg, MaxPerson, 
+LastMaintenanceDate)
+SELECT DISTINCT u.ElevatorId, u.ElevatorApartmentId, u.ElevatorBrand, u.ElevatorMaxKg,
+u.ElevatorMaxPerson, u.ElevatorLastMaintenanceDate
+FROM unf_table u;
+
+
+ CREATE TABLE ParkingLot(
+ ParkingLotId INT NOT NULL,
+ ApartmentId INT NOT NULL,
+ EmployeeId INT NOT NULL,
+ MaxNumberOfCars INT NOT NULL,
+ PRIMARY KEY(ParkingLotId),
+ KEY(EmployeeId),
+ KEY(ApartmentId));
+ 
+INSERT INTO ParkingLot(ParkingLotId, ApartmentId, EmployeeId, MaxNumberOfCars)
+SELECT DISTINCT U.ParkingLotId, u.ParkingLotApartmentId, u.ParkingLotEmployeeId,
+u.ParkingLotMaxNumberOfCars
+FROM unf_table u;
+
+ 
+ CREATE TABLE Employee(
+ EmployeeId INT NOT NULL,
+ Type VARCHAR(255) NOT NULL,
+ Name VARCHAR(255) NOT NULL,
+ Surname VARCHAR(255) NOT NULL,
+ Gender BOOLEAN NOT NULL,
+ PhoneNumber VARCHAR(255) NOT NULL,
+ Salary INT NOT NULL,
+ EmployeeHiredDate DATE NOT NULL,
+ ParkingLotId INT NOT NULL,
+ PRIMARY KEY(EmployeeId),
+ KEY(ParkingLotId));
+ 
+INSERT INTO Employee(EmployeeId, Type, Name, Surname, Gender, PhoneNumber, Salary,
+EmployeeHiredDate, ParkingLotId)
+SELECT DISTINCT u.EmployeeId, u.EmployeeType, u.EmployeeName, u.EmployeeSurname,
+u.EmployeeGender, u.EmployeePhoneNumber, u.EmployeeSalary, u.EmployeeHiredDate,
+u.EmployeeParkingLotId
+FROM unf_table u;
+
+ 
+ CREATE TABLE SwimmingPool(
+ SwimmingPoolId INT NOT NULL,
+ EmployeeId INT NOT NULL,
+ Depth INT NOT NULL,
+ MinAge INT NOT NULL,
+ OpensAt VARCHAR(255) NOT NULL,
+ ClosesAt VARCHAR(255) NOT NULL,
+ LastCleanedDate DATE NOT NULL,
+ PRIMARY KEY(SwimmingPoolId),
+ KEY(EmployeeId));
+
+INSERT INTO SwimmingPool(SwimmingPoolId, EmployeeId, Depth, MinAge, OpensAt, ClosesAt,
+LastCleanedDate)
+SELECT DISTINCT u.SwimmingPoolId, u.SwimmingPoolEmployeeId, u.SwimmingPoolDepth,
+u.SwimmingPoolMinAge, u.SwimmingPoolOpensAt ,u.SwimmingPoolClosesAt, 
+u.SwimmingPoolLastCleanedDate
+FROM unf_table u;
+ 
+ 
+ CREATE TABLE Gym(
+ GymId INT NOT NULL,
+ EmployeeId INT NOT NULL,
+ CurrentPeople INT NOT NULL,
+ HasSquatRack BOOLEAN NOT NULL,
+ MonthlyFee INT NOT NULL,
+ MaxPeople INT NOT NULL,
+ OpensAt VARCHAR(255) NOT NULL,
+ ClosesAt VARCHAR(255) NOT NULL,
+ LastCleanedDate DATE NOT NULL,
+ PRIMARY KEY(GymId),
+ KEY(EmployeeId)
+);
+
+INSERT INTO Gym(GymId, EmployeeId, CurrentPeople, HasSquatRack, MonthlyFee, MaxPeople, OpensAt,
+ClosesAt, LastCleanedDate)
+SELECT DISTINCT u.GymId, u.GymEmployeeId, u.GymCurrentPeople, u.GymHasSquatRack, u.GymMonthlyFee,
+u.GymMaxPeople, u.GymOpensAt, u.GymClosesAt, u.GymLastCleanedDate
+FROM unf_table u;
+
+ 
+ DROP TABLE unf_table;

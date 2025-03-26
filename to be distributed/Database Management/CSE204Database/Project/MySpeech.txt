@@ -1,0 +1,14 @@
+A way to add a new APARTMENT
+	-This query provides adding new apartments to the database system.
+
+A way to change the LAST MAINTENANCE DATE for ELEVATOR
+	-When new maintenance work has done, user can change the last maintenance date to the specific date which work has done 
+
+List all COMPLAINTS WHICH ARE NOT SOLVED
+	-This query provides controling system whether there are new complaints or not , or only displaying complaints which aren't solved yet.
+
+A way to remove employee from the system 
+	-When specific employee's contract terminated, this change also should have been done in the database system so it provides removing an employee from the system.
+
+LIST ALL APARTMENTS AND HOW MANY COMPLAINTS ARE AT EACH
+	-When there is a need for listing apartments and total complaints for each of them, this query can be used.

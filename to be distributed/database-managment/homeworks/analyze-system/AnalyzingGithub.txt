@@ -1,0 +1,59 @@
+Author: Mustafa Arınmış(20190808004)
+Analyzed Site: https://github.com 
+
+1. Repository: 
+    - repository name
+    - number of stars 
+    - number of forks
+    - number of commit 
+    - last commit date
+    - about repository 
+    - folders 
+    - files
+    - commit messages
+    - language statistics
+    - number of watching 
+    - visibility status(public/private)
+
+2. Releases: 
+    - version
+    - date
+    - number of commit 
+    - lastest commmit id 
+    - explanation
+    - assets
+
+3. File:
+    - file name
+    - file size
+    - file text
+    - number of line
+    - number of contributor
+    - lastest commit date
+    - lastest commit hash
+
+4. Profile(like https://github.com/arinmis):
+    - profile photo
+    - name
+    - username
+    - pinned repository
+    - number of contribution
+    - biography
+    - location
+    - personal website link
+    - number of followers
+    - number of followings
+
+5. Account: 
+    - profile name
+    - profile photo
+    - username
+    - email
+    - password
+
+6. SSH keys:
+    - SSH key name
+    - SHA256 hash code
+    - adding date
+    - last used
+    - acccessibility status(read/write)

@@ -1,0 +1,90 @@
+Person
+
+*name
+*surname
+*mail
+*photograph
+*title
+*password
+*social media account
+*notifications
+*payment methods
+
+
+Student
+
+*learning courses
+*cart
+*points awarded for learning course
+*questions you ask for learning course
+*certificates
+*wishlist
+*archived learning courses
+*past payments
+*listed courses
+*notes taken
+
+
+Instructor
+
+*teaching courses
+*main category of teaching courses
+*number of teaching courses
+*number of students 
+*rating
+*udemy credits
+*points awarded for my teaching course
+*questions you ask for my teaching course
+*my answers to the questions you asked for my teaching course
+*past paid
+*description
+
+Course
+
+*instructor
+*lessons
+*course duration
+*category
+*subcategory
+*level
+*language
+*price
+*features
+*subtitles
+*rating
+*number of student
+*number of part
+*number of lesson
+*discount
+*description
+
+
+Lesson
+
+*lesson duration
+*question
+*answers
+
+
+Category
+
+Courses
+Instructors
+Subcategory
+
+
+Subcategory
+
+Courses
+Instructors
+
+
+
+
+
+
+
+
+
+
+

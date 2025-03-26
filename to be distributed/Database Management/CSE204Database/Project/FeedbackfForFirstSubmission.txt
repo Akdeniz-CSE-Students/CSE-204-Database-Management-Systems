@@ -1,0 +1,32 @@
+CSE204 Group Project first submission feedback and customer requests:
+
+GROUP 19: Apartment management system
+Item 1 (5/5)
+66 Columns
+Item 4 (5/5)
+View created
+Item 3 (8/12)
+Did not alter or drop UNF table
+
+
+Item 2 (16/18)
+I assume employee having a relationship to various other entities is saying they are the responsible party.
+
+Can a resident have a gym connection that is not at the same apartment as one they live in?
+
+
+
+
+
+Total (34/40)
+
+Our customer has reviewed your design and has decided that they would like to expand some features. Specifically, they would like the system to keep track of complaints against residents (like noise, pets being dirty, etc.).
+
+They would also like to make sure that in the final system, we can have employees with certain types be responsible for certain areas (like a lifeguard is employed at the pool).
+
+For the user interface portion, the customer would like the ability to do the following:
+1. List all residents at the apartment a certain employee works for -
+2. A list all apartments and how many residents are at each +
+3. A way to change the rent for a flat -
+4. A way to add a new employee -
+5. A way to remove a resident from the system -

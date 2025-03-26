@@ -1,0 +1,31 @@
+1-
+SELECT r.* 
+FROM Resident r, Apartment a, Flat f, Employee e
+WHERE e.EmployeeId = a.EmployeeId AND
+	e.EmployeeId = 10001 AND
+	a.ApartmentId = f.ApartmentId AND
+	f.FlatId = r.FlatId
+
+2-
+SELECT a.ApartmentID, COUNT(a.ApartmentId) AS ResidentCount
+FROM  Apartment a, Flat f, Resident r
+WHERE r.FlatId = f.FlatId AND
+      f.ApartmentId = a.ApartmentId
+GROUP BY a.ApartmentId;
+
+3-
+UPDATE Flat
+SET MonthlyRent = [newRent]
+WHERE FlatId = ChosenFlatId;
+
+4-
+INSERT INTO Employee(EmployeeId,type,name,surname,gender,phoneNumber,salary,EmployeeHiredDate)
+VALUES(1007, "Doorman", "Aslı", "Uzun", FALSE, "05304504985", 10000, "2022-10-10");
+
+5-
+DELETE FROM Resident r
+WHERE r.residentId = 3006;
+
+
+
+

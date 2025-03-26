@@ -1,0 +1,50 @@
+CREATE VIEW shopdatabase AS
+SELECT 
+p.ProductID,
+p.Name,
+pmb.ProductBrand,
+pmb.ProductModel,
+p.Price,
+p.PriceCurrency,
+p.Quantity,
+p.Color,
+pt.ProductCategoryName,
+pt.ProductTypeName,
+p.Material,
+p.Rating,
+pc.Comment,
+pc.CommentStarCount,
+p.Description,
+p.Weight,
+CONCAT(c.FirstName,' ',c.Surname) as 'Customer Full Name',
+c.DOB,
+c.Gender,
+c.Email,
+c.Password,
+ca.AddressName,
+ca.Address,
+c.PhoneNumber,
+pic.ProductID as 'ProductInCustomerCart',
+pic.ProductCount,
+po.Date,
+po.TotalPrice,
+po.PriceCurrency as 'OrderPriceCurrency',
+po.DeliveryTime,
+po.OrderAddress,
+por.ProductCount as 'ProductCountInOrder',
+pr.PropertyName,
+pv.PropertyValue
+
+FROM product p
+INNER JOIN productmodelbrand pmb ON pmb.ProductModel= p.ProductModel
+INNER JOIN producttype pt ON pt.ProductTypeID=p.ProductTypeID
+INNER JOIN productcomment pc ON pc.ProductID=p.ProductID 
+INNER JOIN customer c ON c.CustomerID=pc.CustomerID
+INNER JOIN customeraddress ca ON ca.CustomerID=c.CustomerID
+INNER JOIN cart crt ON crt.CustomerID=c.CustomerID
+INNER JOIN productincart pic ON pic.CartID=crt.CartID
+INNER JOIN productpropertyvalue ppv ON ppv.ProductID=p.ProductID
+INNER JOIN propertyvalue pv ON pv.PropertyValueID=ppv.PropertyValueID
+INNER JOIN property pr ON pr.PropertyID=pv.PropertyID
+INNER JOIN productorder po ON po.CustomerID=c.CustomerID
+INNER JOIN productorderrelation por ON por.OrderID=po.OrderID

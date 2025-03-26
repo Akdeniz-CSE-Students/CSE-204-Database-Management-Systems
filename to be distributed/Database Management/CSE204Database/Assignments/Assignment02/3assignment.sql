@@ -1,0 +1,3 @@
+SELECT DISTINCT type
+FROM room
+WHERE price>300

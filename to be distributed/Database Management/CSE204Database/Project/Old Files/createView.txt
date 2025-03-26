@@ -1,0 +1,77 @@
+CREATE VIEW ApartmentManagmentSystem AS 
+SELECT 
+ h.HousingEstateId,
+ h.HousingEstateName, 
+ a.ApartmentId,
+ a.ApartmentEmployeeId,
+ a.ApartmentElevatorId,
+ a.ApartmentParkingLotId,
+ a.ApartmentName,
+ a.ApartmentAddress,
+ a.ApartmentCity,
+ a.ApartmentNumberOfLevels,
+ a.ApartmentNumberOfFlats, 
+ a.ApartmentBuildDate,
+ a.ApartmentLastCleanedDate,
+ f.FlatId, 
+ f.FlatApartmentId, 
+ f.FlatHowManyRooms, 
+ f.FlatHasAirConditioner, 
+ f.FlatMonthlyRent,
+ r.ResidentId,
+ r.ResidentFlatId,
+ r.ResidentName,
+ r.ResidentSurname,
+ r.ResidentIdentityNumber,
+ r.ResidentPhoneNumber,
+ r.ResidentGender,
+ r.ResidentAge,
+ r.ResidentRentalDate,
+ el.ElevatorId,
+ el.ElevatorApartmentId,
+ el.ElevatorBrand,
+ el.ElevatorMaxKg,
+ el.ElevatorMaxPerson,
+ el.ElevatorLastMaintenanceDate,
+ p.ParkingLotId,
+ p.ParkingLotEmployeeId,
+ p.ParkingLotApartmentId,
+ p.ParkingLotMaxNumberOfCars,
+ emp.EmployeeId,
+ emp.EmployeeType,
+ emp.EmployeeName,
+ emp.EmployeeSurname, 
+ emp.EmployeeGender,
+ emp.EmployeePhoneNumber, 
+ emp.EmployeeSalary,
+ emp.EmployeeHiredDate,
+ s.SwimmingPoolId,
+ s.SwimmingPoolEmployeeId,
+ s.SwimmingPoolDepth,
+ s.SwimmingPoolMinAge,
+ s.SwimmingPoolOpensAt, 
+ s.SwimmingPoolClosesAt, 
+ s.SwimmingPoolLastCleanedDate,
+ g.GymId, 
+ g.GymEmployeeId, 
+ g.GymSize,
+ g.GymHasSquatRack,
+ g.GymMonthlyFee, 
+ g.GymMaxSize,
+ g.GymOpensAt,
+ g.GymClosesAt,
+ g.GymLastCleanedDate
+
+
+FROM housingEstate h
+INNER JOIN housingEstate h ON h.housingEstateId = h.housingEstateId
+INNER JOIN housingEstate h ON
+INNER JOIN 
+INNER JOIN 
+INNER JOIN 
+INNER JOIN 
+INNER JOIN 
+INNER JOIN 
+INNER JOIN 
+INNER JOIN 
+INNER JOIN 

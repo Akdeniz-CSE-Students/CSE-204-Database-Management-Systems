@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE204 - Database Systems Cheatsheet (Back Page)</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Back Page -->
+    <div class="page back-page">
+        <div class="header">
+            <h1>CSE204 - Introduction to Database Systems</h1>
+            <h2>Midterm Examination Cheatsheet (Continued)</h2>
+        </div>
+        
+        <div class="content">
+            <!-- Column 1 - E-R Modeling -->
+            <div class="column">
+                <div class="section" id="er-modeling">
+                    <h3>E-R Modeling</h3>
+                    
+                    <h4>Basic Elements</h4>
+                    <ul>
+                        <li><strong>Entity:</strong> Object or concept (rectangle)</li>
+                        <li><strong>Attribute:</strong> Property of entity (oval)</li>
+                        <li><strong>Relationship:</strong> Association between entities (diamond)</li>
+                    </ul>
+                    
+                    <h4>Attribute Types</h4>
+                    <ul>
+                        <li><strong>Simple:</strong> Atomic, indivisible</li>
+                        <li><strong>Composite:</strong> Can be divided into smaller parts</li>
+                        <li><strong>Single-valued:</strong> One value per entity</li>
+                        <li><strong>Multi-valued:</strong> Multiple values per entity</li>
+                        <li><strong>Derived:</strong> Calculated from other attributes</li>
+                    </ul>
+                    
+                    <h4>Cardinality Constraints</h4>
+                    <ul>
+                        <li><strong>One-to-One (1:1):</strong> Each entity in A is related to at most one entity in B</li>
+                        <li><strong>One-to-Many (1:*):</strong> Each entity in A is related to any number of entities in B</li>
+                        <li><strong>Many-to-Many (*:*):</strong> Entities in A and B can be related to any number of entities</li>
+                    </ul>
+                    
+                    <h4>Participation Constraints</h4>
+                    <ul>
+                        <li><strong>Total:</strong> Every entity must participate in relationship (double line)</li>
+                        <li><strong>Partial:</strong> Some entities may not participate (single line)</li>
+                    </ul>
+                    
+                    <h4>Converting E-R to Relations</h4>
+                    <ol>
+                        <li>Create table for each entity with primary key</li>
+                        <li>Create table for each M:N relationship</li>
+                        <li>For 1:N, place foreign key in N-side table</li>
+                        <li>For 1:1, place foreign key in either table (preferably with total participation)</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <!-- Column 2 - DB Analysis -->
+            <div class="column">
+                <div class="section" id="db-analysis">
+                    <h3>DB Analysis</h3>
+                    
+                    <h4>Database Design Process</h4>
+                    <ol>
+                        <li>Requirements collection and analysis</li>
+                        <li>Conceptual database design (E-R model)</li>
+                        <li>Logical database design (relational schema)</li>
+                        <li>Schema refinement (normalization)</li>
+                        <li>Physical database design (storage structures)</li>
+                        <li>Security design</li>
+                    </ol>
+                    
+                    <h4>Requirements Analysis</h4>
+                    <ul>
+                        <li>Identify entities and relationships</li>
+                        <li>Determine data constraints</li>
+                        <li>Define user operations (queries, updates)</li>
+                        <li>Document requirements</li>
+                    </ul>
+                    
+                    <h4>Schema Design Principles</h4>
+                    <ul>
+                        <li>Avoid redundancy</li>
+                        <li>Avoid null values when possible</li>
+                        <li>Ensure entity integrity</li>
+                        <li>Ensure referential integrity</li>
+                        <li>Consider query performance</li>
+                    </ul>
+                    
+                    <h4>Common Design Pitfalls</h4>
+                    <ul>
+                        <li>Insufficient normalization (redundancy)</li>
+                        <li>Over-normalization (performance issues)</li>
+                        <li>Poor primary key selection</li>
+                        <li>Inadequate foreign key constraints</li>
+                        <li>Ignoring data integrity rules</li>
+                    </ul>
+                </div>
+                
+                <div class="section" id="exam-tips">
+                    <h3>Exam Tips</h3>
+                    
+                    <div class="important">
+                        Exam Format: Short answer questions, problems, and long answer questions
+                    </div>
+                    
+                    <h4>Focus Areas</h4>
+                    <ul>
+                        <li>Define important terms</li>
+                        <li>Write SQL statements</li>
+                        <li>Analyze E-R diagrams</li>
+                        <li>Normalize datasets</li>
+                        <li>Understand relationship traps</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Column 3 - DB System Development & Advanced SQL -->
+            <div class="column">
+                <div class="section" id="db-system-development">
+                    <h3>DB System Development</h3>
+                    
+                    <h4>Implementation Steps</h4>
+                    <ol>
+                        <li>Create database schema</li>
+                        <li>Define integrity constraints</li>
+                        <li>Implement security measures</li>
+                        <li>Develop application interfaces</li>
+                        <li>Test and validate</li>
+                    </ol>
+                    
+                    <h4>Testing and Optimization</h4>
+                    <ul>
+                        <li>Verify data integrity</li>
+                        <li>Test query performance</li>
+                        <li>Optimize indexes</li>
+                        <li>Tune database parameters</li>
+                    </ul>
+                </div>
+                
+                <div class="section" id="advanced-sql">
+                    <h3>Advanced SQL</h3>
+                    
+                    <h4>Subqueries</h4>
+                    <div class="code-block">
+SELECT column
+FROM table
+WHERE column IN (SELECT column FROM table);
+                    </div>
+                    
+                    <h4>Aggregation Functions</h4>
+                    <ul>
+                        <li><strong>COUNT():</strong> Number of rows</li>
+                        <li><strong>SUM():</strong> Sum of values</li>
+                        <li><strong>AVG():</strong> Average of values</li>
+                        <li><strong>MIN():</strong> Minimum value</li>
+                        <li><strong>MAX():</strong> Maximum value</li>
+                    </ul>
+                    
+                    <h4>GROUP BY with HAVING</h4>
+                    <div class="code-block">
+SELECT column, COUNT(*)
+FROM table
+GROUP BY column
+HAVING COUNT(*) > value;
+                    </div>
+                    
+                    <h4>ALTER TABLE</h4>
+                    <div class="code-block">
+ALTER TABLE table
+ADD column datatype;
+
+ALTER TABLE table
+DROP COLUMN column;
+
+ALTER TABLE table
+MODIFY COLUMN column datatype;
+                    </div>
+                    
+                    <h4>Views</h4>
+                    <div class="code-block">
+CREATE VIEW view_name AS
+SELECT columns
+FROM tables
+WHERE condition;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

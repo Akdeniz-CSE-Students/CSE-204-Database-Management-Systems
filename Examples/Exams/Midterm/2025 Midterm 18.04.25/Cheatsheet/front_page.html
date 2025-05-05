@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSE204 - Database Systems Cheatsheet</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Front Page -->
+    <div class="page front-page">
+        <div class="header">
+            <h1>CSE204 - Introduction to Database Systems</h1>
+            <h2>Midterm Examination Cheatsheet</h2>
+        </div>
+        
+        <div class="content">
+            <!-- Column 1 - Relational Model -->
+            <div class="column">
+                <div class="section" id="relational-model">
+                    <h3>Relational Model</h3>
+                    
+                    <h4>Relations and Relationships</h4>
+                    <p><strong>Relation:</strong> A table in a database; similar to a table</p>
+                    <p><strong>Relationship:</strong> Connection between tables with common attributes</p>
+                    
+                    <h4>Entity Types</h4>
+                    <ul>
+                        <li><strong>Strong Entity:</strong> Does not depend on another entity for existence</li>
+                        <li><strong>Weak Entity:</strong> Depends on another entity for existence</li>
+                    </ul>
+                    
+                    <h4>Keys</h4>
+                    <ul>
+                        <li><strong>Primary Key:</strong> Uniquely identifies each row; cannot be null</li>
+                        <li><strong>Foreign Key:</strong> References primary key in another table</li>
+                        <li><strong>Candidate Key:</strong> Potential primary key; uniquely identifies rows</li>
+                        <li><strong>Super Key:</strong> Any set of attributes that uniquely identifies a row</li>
+                        <li><strong>Alternate Key:</strong> Candidate key not selected as primary key</li>
+                    </ul>
+                    
+                    <h4>Integrity Constraints</h4>
+                    <ul>
+                        <li><strong>Entity Integrity:</strong> Primary key cannot be null</li>
+                        <li><strong>Referential Integrity:</strong> Foreign key must match existing primary key or be null</li>
+                        <li><strong>Domain Integrity:</strong> Values must conform to defined data types</li>
+                    </ul>
+                    
+                    <h4>Relationship Traps</h4>
+                    <ul>
+                        <li><strong>Fan Trap:</strong> One entity has many relationships with two others, but relationship between these others is necessary</li>
+                        <li><strong>Chasm Trap:</strong> Participation with entity not required, but finding counterpart with third entity is necessary</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Column 2 - SQL -->
+            <div class="column">
+                <div class="section" id="sql">
+                    <h3>SQL</h3>
+                    
+                    <h4>Creating Tables</h4>
+                    <div class="code-block">
+CREATE TABLE TableName (
+    column1 datatype constraints,
+    column2 datatype constraints,
+    ...
+    PRIMARY KEY (column),
+    FOREIGN KEY (column) 
+        REFERENCES OtherTable(column)
+);
+                    </div>
+                    
+                    <h4>SQL Constraints</h4>
+                    <ul>
+                        <li><strong>PRIMARY KEY</strong> - Uniquely identifies each record</li>
+                        <li><strong>FOREIGN KEY</strong> - Links data between tables</li>
+                        <li><strong>NOT NULL</strong> - Column cannot have NULL value</li>
+                        <li><strong>UNIQUE</strong> - All values in column must be different</li>
+                        <li><strong>DEFAULT</strong> - Sets default value for column</li>
+                        <li><strong>CHECK</strong> - Ensures values meet specified condition</li>
+                    </ul>
+                    
+                    <h4>SELECT Queries</h4>
+                    <div class="code-block">
+SELECT column1, column2, ...
+FROM table1, table2, ...
+WHERE condition
+GROUP BY column
+HAVING condition
+ORDER BY column ASC/DESC;
+                    </div>
+                    
+                    <h4>JOIN Operations</h4>
+                    <div class="code-block">
+SELECT columns
+FROM table1
+INNER JOIN table2 ON table1.column = table2.column;
+
+SELECT columns
+FROM table1
+LEFT JOIN table2 ON table1.column = table2.column;
+                    </div>
+                    
+                    <h4>Data Manipulation</h4>
+                    <div class="code-block">
+INSERT INTO table (column1, column2, ...)
+VALUES (value1, value2, ...);
+
+UPDATE table
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
+DELETE FROM table
+WHERE condition;
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Column 3 - Normalization -->
+            <div class="column">
+                <div class="section" id="normalization">
+                    <h3>Normalization</h3>
+                    
+                    <h4>Functional Dependencies</h4>
+                    <p><strong>Notation:</strong> X → Y means X determines Y</p>
+                    <ul>
+                        <li><strong>Functional Dependency:</strong> Attribute(s) determines value of another attribute(s)</li>
+                        <li><strong>Full Functional Dependency:</strong> X→Y where Y depends on entire X, not subset</li>
+                        <li><strong>Transitive Dependency:</strong> X→Y, Y→Z creates X→Z</li>
+                        <li><strong>Partial Dependency:</strong> Part of composite key determines non-key attribute</li>
+                    </ul>
+                    
+                    <h4>Normal Forms</h4>
+                    <ul>
+                        <li><strong>1NF:</strong> All attributes are atomic (no repeating groups)</li>
+                        <li><strong>2NF:</strong> In 1NF and no partial dependencies on primary key</li>
+                        <li><strong>3NF:</strong> In 2NF and no transitive dependencies</li>
+                        <li><strong>BCNF:</strong> For X→Y, X must be a superkey</li>
+                    </ul>
+                    
+                    <h4>Normalization Process</h4>
+                    <ol>
+                        <li>Identify all functional dependencies</li>
+                        <li>Find candidate keys</li>
+                        <li>Check for partial dependencies (violate 2NF)</li>
+                        <li>Check for transitive dependencies (violate 3NF)</li>
+                        <li>Decompose relations to achieve desired normal form</li>
+                    </ol>
+                    
+                    <div class="important">
+                        Remember: Normalization reduces redundancy but may impact performance due to increased JOINs
+                    </div>
+                    
+                    <h4>Denormalization</h4>
+                    <p>Intentionally introducing redundancy for performance reasons</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

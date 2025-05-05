@@ -1,0 +1,173 @@
+/* A4 Paper Size in pixels (at 96 DPI):
+   Width: 794px (8.27 inches)
+   Height: 1123px (11.69 inches)
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    line-height: 1.2;
+}
+
+.page {
+    width: 794px;
+    height: 1123px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.front-page {
+    background-color: #f9f9f9;
+}
+
+.back-page {
+    background-color: #f5f5f5;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+
+.header h1 {
+    font-size: 16px;
+    margin: 0;
+    color: #333;
+}
+
+.header h2 {
+    font-size: 12px;
+    margin: 5px 0 0;
+    color: #666;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height: calc(100% - 50px);
+}
+
+.column {
+    width: 32%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.section {
+    margin-bottom: 15px;
+}
+
+.section h3 {
+    font-size: 11px;
+    margin: 0 0 5px 0;
+    padding: 2px 5px;
+    background-color: #333;
+    color: white;
+    border-radius: 3px;
+}
+
+.section h4 {
+    font-size: 10px;
+    margin: 8px 0 3px;
+    color: #333;
+    border-bottom: 1px dotted #999;
+}
+
+.section p, .section ul {
+    margin: 3px 0;
+}
+
+.section ul {
+    padding-left: 15px;
+}
+
+.section li {
+    margin-bottom: 2px;
+}
+
+.code-block {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    padding: 3px;
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+.note {
+    background-color: #fffde7;
+    border-left: 3px solid #ffd600;
+    padding: 3px 5px;
+    margin: 5px 0;
+    font-style: italic;
+}
+
+.important {
+    background-color: #ffebee;
+    border-left: 3px solid #f44336;
+    padding: 3px 5px;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 2px 3px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+/* Print settings */
+@media print {
+    @page {
+        size: A4;
+        margin: 0;
+    }
+    
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .page {
+        margin: 0;
+        border: none;
+        width: 100%;
+        height: 100%;
+        page-break-after: always;
+    }
+    
+    .page-container {
+        padding: 0;
+        margin: 0;
+    }
+    
+    .page-label {
+        display: none;
+    }
+    
+    iframe {
+        display: none;
+    }
+}

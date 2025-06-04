@@ -1,0 +1,1 @@
+Hocanin verdigi cevaplarin bazilari yanlis. Bilerek yanlis girilmis.

@@ -1,0 +1,2 @@
+SELECT guestName 
+FROM guest;
